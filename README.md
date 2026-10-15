@@ -6,7 +6,10 @@ The analysis uses 223 survey responses provided by the professor, plus historica
 
 File: assignment/weather_and_motivation.ipynb
 
-Question: Do students select “It is the most exciting” more often on rainy days?
+Questions:
+
+- Do students select “It is the most exciting” more often on rainy days?
+- Can daily rainfall predict whether a student selects that answer?
 
 The notebook:
 
@@ -16,12 +19,15 @@ The notebook:
 - Defines rainy days as days with at least 1 mm of rainfall.
 - Compares the percentage selecting “most exciting” using a table and bar chart.
 - Checks the comparison within each year.
+- Uses `GroupShuffleSplit` to keep responses from the same date together, holding out 20% of dates for testing.
+- Uses `StandardScaler` and scikit-learn logistic regression to predict the yes/no answer from rainfall alone.
+- Compares test accuracy with a `DummyClassifier` that always predicts the most common training answer.
 
 Result: 52.8% selected “most exciting” on rainy days, compared with 48.0% on days below 1 mm—a difference of 4.8 percentage points.
 
 This does not prove rainfall caused the difference. Cohorts differ, and several students answered on the same day. The 223 responses cover only 45 distinct dates.
 
-This notebook contains descriptive analysis, not a machine-learning model.
+**Prediction result:** trained on 194 students from 36 dates and tested on 29 students from nine different dates. Logistic regression got **11/29 correct (37.9%)**, compared with **12/29 (41.4%)** for the baseline. Rainfall alone did not improve prediction on this split. This is a difference of just one student, not evidence that no relationship could exist. Full-day rainfall can include rain after the response, so this is a retrospective analysis rather than a real-time forecast.
 
 ## 2. Motivation and year
 
