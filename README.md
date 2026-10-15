@@ -39,10 +39,10 @@ The notebook:
 - Converts five motivation categories into 0/1 columns, allowing multiple selections.
 - Combines “business skills” and “commercially useful skills” into one category.
 - Splits students into 80% training and 20% testing, preserving representation of each year.
-- Standardizes inputs using training-set statistics only.
-- Implements two supervised classifiers directly with NumPy:
-  - Nearest-centroid: predicts the year with the closest average motivation profile.
-  - KNN: predicts the most common year among the five closest training students.
+- Uses scikit-learn’s `StandardScaler` to standardize KNN inputs using training-set statistics only; the decision tree uses the original 0/1 inputs.
+- Compares two supervised classifiers:
+  - Decision tree: uses scikit-learn, following Lecture #07, to learn yes/no splits on motivation choices, with a maximum depth of three.
+  - KNN: uses scikit-learn; predicts the most common year among the five closest training students.
 - Compares both models with a baseline that always predicts the most common training year.
 
 Results on the same 45 test students:
@@ -50,9 +50,9 @@ Results on the same 45 test students:
 | Method | Correct predictions | Accuracy |
 |---|---:|---:|
 | Most common year baseline | 10/45 | 22.2% |
-| Nearest-centroid | 12/45 | 26.7% |
+| Decision tree, maximum depth three | 8/45 | 17.8% |
 | KNN, five neighbours | 10/45 | 22.2% |
 
-Nearest-centroid performed slightly better, but neither model predicted the year accurately. This small, exploratory comparison does not establish a reliable advantage.
+KNN matched the baseline, while the decision tree performed worse on this split. Neither model predicted the year accurately. This small, exploratory comparison does not establish a reliable advantage; the same test set has been inspected during earlier experiments.
 
 The observed excitement percentage ranged from 36.4% in 2023 to 71.4% in 2021. However, 2021 contains only seven students, and these are different cohorts—not the same students followed over time.
